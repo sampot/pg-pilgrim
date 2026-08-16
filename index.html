@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="theme-color" content="#b8322a" />
+    <meta
+      name="description"
+      content="廟會遶境路線：在十八刻內走訪三座小壇、應變街路事件，平安回到主壇。"
+    />
+    <title>廟會遶境路線</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="festival-sky" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">十八刻內 · 三境巡行</p>
+          <h1>廟會遶境路線</h1>
+        </div>
+        <button id="sound-toggle" class="quiet-button" type="button" aria-pressed="true">
+          ♪ 聲音開
+        </button>
+      </header>
+
+      <section id="lobby" class="lobby paper-panel">
+        <div class="seal" aria-hidden="true">巡</div>
+        <p class="kicker">香路策劃局</p>
+        <h2>帶隊走一條平安好路</h2>
+        <p class="intro">
+          從主壇出發，走訪北、東、水岸三座小壇，再於第 18 刻前回壇。
+          看準車潮、陣頭交會與午後驟雨，別讓鼓聲擾了街坊。
+        </p>
+
+        <div class="mission-grid">
+          <article>
+            <img src="./assets/images/hourglass.png" alt="" />
+            <strong>18 刻時限</strong>
+            <span>逾時回壇不計分</span>
+          </article>
+          <article>
+            <img src="./assets/images/shrine.png" alt="" />
+            <strong>三境參禮</strong>
+            <span>指定小壇缺一不可</span>
+          </article>
+          <article>
+            <img src="./assets/images/incense.png" alt="" />
+            <strong>香火與安寧</strong>
+            <span>擾動過高香火折半</span>
+          </article>
+        </div>
+
+        <button id="start-button" class="primary big" type="button">鳴鑼出發</button>
+        <p class="best-line">歷來最佳 <strong id="best-score">0 分</strong></p>
+
+        <section class="records" aria-labelledby="records-title">
+          <h3 id="records-title">近期圓滿香路</h3>
+          <ol id="route-records"></ol>
+        </section>
+      </section>
+
+      <section id="game" class="game" hidden>
+        <div class="hud" aria-label="遶境狀態">
+          <div class="time-stat">
+            <span>時辰</span><strong id="time-value">0 / 18</strong>
+            <div class="time-track"><i id="time-fill"></i></div>
+          </div>
+          <div><span>體力</span><strong id="stamina-value">10 / 12</strong></div>
+          <div><span>香火</span><strong id="incense-value">0</strong></div>
+          <div><span>擾動</span><strong id="disturbance-value">0</strong></div>
+          <div><span>小壇</span><strong id="shrine-value">○○○</strong></div>
+        </div>
+
+        <div id="event-strip" class="event-strip" aria-live="polite"></div>
+
+        <section
+          id="board"
+          class="board paper-panel"
+          tabindex="-1"
+          aria-label="十二站遶境路線圖"
+        >
+          <div class="board-heading">
+            <div>
+              <p class="kicker">十二站街路圖</p>
+              <h2>點亮下一站</h2>
+            </div>
+            <span class="map-key"><i></i> 可前往</span>
+          </div>
+          <div class="map">
+            <svg class="streets" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <g id="street-lines"></g>
+              <line id="shortcut-line" x1="27" y1="76" x2="77" y2="75" class="shortcut" hidden />
+            </svg>
+            <div id="map-nodes"></div>
+            <img
+              id="procession"
+              class="procession"
+              src="./assets/images/procession.png"
+              alt=""
+            />
+            <div class="rain" aria-hidden="true"></div>
+          </div>
+          <p id="location-line" class="location-line"></p>
+        </section>
+
+        <aside class="control-column">
+          <section class="actions paper-panel">
+            <p class="kicker">領隊指令</p>
+            <div class="action-grid">
+              <button id="rest-button" class="secondary" type="button">
+                歇腳 · 1 刻
+                <small>恢復 3 體力</small>
+              </button>
+              <button id="coordinate-button" class="secondary" type="button">
+                派協調隊 · 1 刻
+              </button>
+            </div>
+            <p id="message" class="message" role="status"></p>
+            <button id="finish-button" class="primary big" type="button" hidden>
+              收隊回壇
+            </button>
+          </section>
+
+          <section class="route-feed paper-panel">
+            <h2>帶隊紀錄</h2>
+            <ol id="route-log" aria-live="polite"></ol>
+          </section>
+        </aside>
+      </section>
+
+      <footer>
+        <button id="how-button" class="quiet-button" type="button">玩法與素材</button>
+        <span>抽象文化符號 · 無真實宮廟識別</span>
+      </footer>
+    </main>
+
+    <section
+      id="result-sheet"
+      class="sheet"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="result-title"
+    >
+      <div class="sheet-card">
+        <div class="paper-burst" aria-hidden="true">✦</div>
+        <p class="kicker">本趟香路結算</p>
+        <h2 id="result-title"></h2>
+        <div id="result-body"></div>
+        <button id="result-close" class="primary big" type="button">回到香路策劃局</button>
+      </div>
+    </section>
+
+    <section
+      id="about-sheet"
+      class="sheet"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="about-title"
+    >
+      <div class="sheet-card about-card">
+        <h2 id="about-title">怎麼帶隊？</h2>
+        <ol>
+          <li>點地圖上發亮的相鄰站移動；每條街都會消耗時辰與體力。</li>
+          <li>三座「小壇」都要參禮，最後回到主壇，且總時間不得超過 18 刻。</li>
+          <li>香市、小壇、補給站會給香火、體力或捷徑；歇腳花 1 刻恢復體力。</li>
+          <li>協調隊只能用一次：先花 1 刻準備，即可通過下一段活動封路。</li>
+          <li>重複繞入住宅、太晚敲鼓會增加擾動；達 6 點時香火只計一半。</li>
+        </ol>
+        <p>
+          本作只使用抽象節慶與街區符號，不指涉真實宮廟或團體。
+          素材授權見 <a href="./ATTRIBUTION.md">ATTRIBUTION.md</a>。
+        </p>
+        <button id="about-close" class="primary big" type="button">知道了</button>
+      </div>
+    </section>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
