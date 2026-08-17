@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "rev": "1fc276e",
+  "files": [
+    "app.js",
+    "assets/audio/chime.ogg",
+    "assets/audio/click.ogg",
+    "assets/audio/event.ogg",
+    "assets/audio/procession-loop.ogg",
+    "assets/fonts/cubic-11.woff2",
+    "assets/images/gate.png",
+    "assets/images/hourglass.png",
+    "assets/images/house.png",
+    "assets/images/incense.png",
+    "assets/images/procession.png",
+    "assets/images/shrine.png",
+    "assets/licenses/blippy-bits.txt",
+    "assets/licenses/cubic-11-ofl.txt",
+    "assets/licenses/kenney-board-game-icons.txt",
+    "assets/licenses/kenney-ui-audio.txt",
+    "audio.js",
+    "functions.js",
+    "game.js",
+    "index.html",
+    "persist.js",
+    "styles.css"
+  ]
+}
